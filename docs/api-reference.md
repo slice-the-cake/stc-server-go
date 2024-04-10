@@ -1,5 +1,9 @@
 # API reference
 
+## Account
+
+### Register account
+
 ## Ledger
 
 ### Register entry (WIP)
