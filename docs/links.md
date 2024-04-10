@@ -6,4 +6,4 @@
 
 - [Stack Overflow - How to update primary key](https://stackoverflow.com/questions/2499246/how-to-update-primary-key)
 
-- [Stack Overflow - https://stackoverflow.com/questions/2499246/how-to-update-primary-key](https://stackoverflow.com/questions/3336934/reduce-sql-server-table-fragmentation-without-adding-dropping-a-clustered-index)
+- [Stack Overflow - Reduce SQL Server table fragmentation without adding/dropping a clustered index?](https://stackoverflow.com/questions/3336934/reduce-sql-server-table-fragmentation-without-adding-dropping-a-clustered-index)
