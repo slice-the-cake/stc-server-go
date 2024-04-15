@@ -1,5 +1,27 @@
 # API reference
 
+This is asking to become an OpenAPI spec., and it will in the (hopefully near) future.
+
+## User
+
+### Register
+
+[WIP] Creates a new user account.
+
+**Method**: POST
+
+**Path**: users
+
+**Body**:
+
+```json
+
+{
+    "username": "string",
+    "usernameHash": "string"
+}
+```
+
 ## Account
 
 ### Register account
