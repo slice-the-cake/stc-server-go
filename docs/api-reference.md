@@ -15,10 +15,36 @@ This is asking to become an OpenAPI spec., and it will in the (hopefully near) f
 **Body**:
 
 ```json
-
 {
-    "username": "string",
+    "username": "string", // required, min length 1, max length 16 (?)
     "usernameHash": "string"
+}
+```
+
+**Responses**:
+
+- 201 - Created
+
+```json
+{
+    "id": "uuid"
+}
+```
+
+- 422 - Username is too long
+
+- 409 - Unavailable username
+
+```json
+{
+    "errors": [
+        {
+            "code": "UNAVAILABLE_USERNAME",
+            "dataMap": {
+                "username": "$REQUESTED_USERNAME"
+            }
+        }
+    ]
 }
 ```
 
