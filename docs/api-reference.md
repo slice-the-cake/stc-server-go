@@ -10,7 +10,7 @@ This is asking to become an OpenAPI spec., and it will in the (hopefully near) f
 
 **Pre-conditions**:
 
-- The hash is recommended to be encrypted by the client with the user's passphrase and send down as the hash. In that way the passphrase is never sent to the server.
+- It is recommended that the username be encrypted by the client with the user's passphrase and sent down as the hash. In that way the passphrase is never sent to the server.
 
 **Post-conditions**:
 
