@@ -5,3 +5,16 @@ This is a reference implementation of the STC (Slice the Cake) - a financial man
 ## API reference
 
 [Link](https://github.com/slice-the-cake/stc-server-go/blob/master/docs/api-reference.md)
+
+## Local setup
+
+1. Copy the `.env-sample` file in the project root into an `.env` file. The latter is set to be ignored by `git`.
+2. Replace the environment variables as appropriate.
+
+## Running locally
+
+Execute the local compose file with your compose engine of choice, e.g., `docker-compose`. Here's an example with `podman-compose`:
+
+```shell
+podman-compose -f containers/local-compose.yml up
+```
