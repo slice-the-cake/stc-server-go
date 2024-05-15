@@ -16,5 +16,14 @@ This is a reference implementation of the STC (Slice the Cake) - a financial man
 Execute the local compose file with your compose engine of choice, e.g., `docker-compose`. Here's an example with `podman-compose`:
 
 ```shell
-podman-compose -f containers/local-compose.yml up
+podman-compose -f containers/local-compose.yml up --force-recreate
 ```
+
+## Rebuilding server image
+
+When you make changes to the server source code you will need to rebuild the container image. Here's an example with `podman-compose`:
+
+```shell
+podman-compose -f containers/local-compose.yml build server
+```
+
