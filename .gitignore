@@ -1,3 +1,4 @@
 stc-server-go
 
 .env
+database/data
