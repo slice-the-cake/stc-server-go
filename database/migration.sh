@@ -4,12 +4,13 @@ set -e # exit on first error
 ERR_NO_CMD=1
 ERR_NO_MIGRATION_NAME=2
 ERR_NO_ENV_VAR=3
+ERR_APPLY_NO_ARG=4
+ERR_APPLY_NO_ENV_VAR_NAME=5
 
 TEST_CONTAINER_NAME=migration
 WAIT_SECONDS=5
 
 # TODO:
-# - apply should take env. var name as connection string
 # - apply_test should be implemented as a function of apply
 # - test logging using $0 as log prefix, create log function
 
@@ -56,18 +57,29 @@ diff() {
 }
 
 apply() {
-	# TODO: consider passing env. var value directly instead of its name
-	# https://unix.stackexchange.com/questions/453765/reading-dynamic-variable-from-env
-	eval "CONN_STRING=\$$1"
-	if [[ -z $CONN_STRING ]]
+	if [[ -z $1 ]]
 	then
-		echo "apply: Could not find an environment variable named '$1'"
-		exit $ERR_NO_ENV_VAR
+		echo "apply: must be called with either '-e <ENV_VAR_NAME>' (without '$') or <RAW_URL>"
+		exit $ERR_APPLY_NO_ARG
+	fi
+	if [[ "$1" = "-e" ]]
+	then
+		echo "apply: environment variable mode"
+		if [[ -z $2 ]]
+		then
+			echo "apply: the environment variable name (without '$') must be provided as a parameter to '-e'"
+			exit $ERR_APPLY_NO_ENV_VAR_NAME
+		fi
+		# https://unix.stackexchange.com/questions/453765/reading-dynamic-variable-from-env
+		eval "CONN_STRING=\$$2"
+	else
+		echo "apply: raw URL mode"
+		CONN_STRING=$1
 	fi
 
-	echo "apply: applying migrations to database specified in '$1'"
+	echo "apply: applying migrations to specified database"
 	podman run --rm --net=host -v $(pwd)/database/migrations:/migrations docker.io/arigaio/atlas migrate apply --url "$CONN_STRING"
-	echo "apply: migrations applied to database specified in '$1'"
+	echo "apply: migrations applied to specified database"
 }
 
 apply_test() {
