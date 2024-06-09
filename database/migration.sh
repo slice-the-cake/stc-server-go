@@ -9,7 +9,6 @@ TEST_CONTAINER_NAME=migration
 WAIT_SECONDS=5
 
 # TODO:
-# - apply_test still useful for having an explicit way to test migrations
 # - apply should take env. var name as connection string
 # - apply_test should be implemented as a function of apply
 # - test logging using $0 as log prefix, create log function
