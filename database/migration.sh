@@ -11,7 +11,6 @@ TEST_CONTAINER_NAME=migration
 WAIT_SECONDS=5
 
 # TODO:
-# - apply_test should be implemented as a function of apply
 # - test logging using $0 as log prefix, create log function
 
 if [[ -z $1 ]]
@@ -99,9 +98,7 @@ apply_test() {
 	echo "apply_test: Waiting for $WAIT_SECONDS seconds for postgres to start"
 	sleep $WAIT_SECONDS
 
-	echo "apply_test: applying migrations"
-	podman run --rm --net=host -v $(pwd)/database/migrations:/migrations docker.io/arigaio/atlas migrate apply \
-		--url "$DB_TEST_URL"
+	apply $DB_TEST_URL
 	echo "apply_test: migrations applied, container '$TEST_CONTAINER_NAME' will be left running so the changes can be tested"
 }
 
