@@ -10,9 +10,6 @@ ERR_APPLY_NO_ENV_VAR_NAME=5
 TEST_CONTAINER_NAME=migration
 WAIT_SECONDS=5
 
-# TODO:
-# - test logging using $0 as log prefix, create log function
-
 if [[ -z $1 ]]
 then
 	echo "Please provide command"
