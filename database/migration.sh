@@ -17,6 +17,12 @@ then
 fi
 
 diff() {
+	if [[ -z $PG_PASSWORD ]]
+	then
+		echo "diff: the env. var 'PG_PASSWORD' must be set"
+		exit $ERR_NO_ENV_VAR
+	fi
+
 	if [[ -z $DB_TEST_URL ]]
 	then
 		echo "diff: The env. var 'DB_TEST_URL' must be set"
@@ -30,7 +36,6 @@ diff() {
 	fi
 
 	# TODO:
-	# - check for existence of $PG_PASSWORD env. var
 	# - test db port should also be in an env. var
 	# - check if those env. vars can be used to compose the URL env. var
 
