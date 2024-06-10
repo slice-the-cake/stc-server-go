@@ -112,3 +112,6 @@ stop_test() {
 "$@"
 
 echo "migration: finished"
+
+# TODO:
+# - create help function to explain how to use this script. Will serve as help and as documentation.
