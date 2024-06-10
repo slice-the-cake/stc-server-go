@@ -17,9 +17,9 @@ then
 fi
 
 diff() {
-	if [[ -z $PG_PASSWORD ]]
+	if [[ -z $DB_TEST_PASSWORD ]]
 	then
-		echo "diff: the env. var 'PG_PASSWORD' must be set"
+		echo "diff: the env. var 'DB_TEST_PASSWORD' must be set"
 		exit $ERR_NO_ENV_VAR
 	fi
 
@@ -40,7 +40,7 @@ diff() {
 	# - check if those env. vars can be used to compose the URL env. var
 
 	echo "diff: starting test container named '$TEST_CONTAINER_NAME'"
-	podman run --name $TEST_CONTAINER_NAME -e POSTGRES_PASSWORD=$PG_PASSWORD -p 5433:5432 -d --rm docker.io/postgres
+	podman run --name $TEST_CONTAINER_NAME -e POSTGRES_PASSWORD=$DB_TEST_PASSWORD -p 5433:5432 -d --rm docker.io/postgres
 	echo "diff: container '$TEST_CONTAINER_NAME' started"
 
 	echo "diff: Waiting for $WAIT_SECONDS seconds for postgres to start"
@@ -94,7 +94,7 @@ apply_test() {
 	# - as above, make test db port an env. var
 	# - as above, check if env. vars can be composed in the file
 	echo "apply_test: starting test container named '$TEST_CONTAINER_NAME'"
-	podman run --name $TEST_CONTAINER_NAME -e POSTGRES_PASSWORD=$PG_PASSWORD -p 5433:5432 -d --rm docker.io/postgres
+	podman run --name $TEST_CONTAINER_NAME -e POSTGRES_PASSWORD=$DB_TEST_PASSWORD -p 5433:5432 -d --rm docker.io/postgres
 	echo "apply_test: container '$TEST_CONTAINER_NAME' started"
 
 	echo "apply_test: Waiting for $WAIT_SECONDS seconds for postgres to start"
