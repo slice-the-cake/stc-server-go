@@ -16,6 +16,12 @@ then
 	exit $ERR_NO_CMD
 fi
 
+stop_test() {
+	echo "stop_test: stopping test container '$TEST_CONTAINER_NAME'"
+	podman stop $TEST_CONTAINER_NAME
+	echo "stop_test: test container '$TEST_CONTAINER_NAME' stopped"
+}
+
 diff() {
 	if [[ -z $DB_TEST_PASSWORD ]]
 	then
@@ -47,10 +53,7 @@ diff() {
 		--dev-url "$DB_TEST_URL" --format '{{ sql . "  " }}'
 	echo "diff: generation finished"
 
-	# TODO: call stop_test here
-	echo "diff: stopping '$TEST_CONTAINER_NAME'"
-	podman stop $TEST_CONTAINER_NAME
-	echo "diff: '$TEST_CONTAINER_NAME' stopped"
+	stop_test
 }
 
 apply() {
@@ -95,12 +98,6 @@ apply_test() {
 
 	apply $DB_TEST_URL
 	echo "apply_test: migrations applied, container '$TEST_CONTAINER_NAME' will be left running so the changes can be tested"
-}
-
-stop_test() {
-	echo "stop_test: stopping test container '$TEST_CONTAINER_NAME'"
-	podman stop $TEST_CONTAINER_NAME
-	echo "stop_test: test container '$TEST_CONTAINER_NAME' stopped"
 }
 
 # https://stackoverflow.com/questions/8818119/how-can-i-run-a-function-from-a-script-in-command-line
