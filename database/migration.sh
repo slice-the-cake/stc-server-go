@@ -35,9 +35,6 @@ diff() {
 		exit $ERR_NO_MIGRATION_NAME
 	fi
 
-	# TODO:
-	# - check if those env. vars can be used to compose the URL env. var
-
 	echo "diff: starting test container named '$TEST_CONTAINER_NAME'"
 	podman run --name $TEST_CONTAINER_NAME -e POSTGRES_PASSWORD=$DB_TEST_PASSWORD -p $DB_TEST_PORT:5432 -d --rm docker.io/postgres
 	echo "diff: container '$TEST_CONTAINER_NAME' started"
@@ -89,8 +86,6 @@ apply_test() {
 		exit $ERR_NO_ENV_VAR
 	fi
 
-	# TODO:
-	# - as above, check if env. vars can be composed in the file
 	echo "apply_test: starting test container named '$TEST_CONTAINER_NAME'"
 	podman run --name $TEST_CONTAINER_NAME -e POSTGRES_PASSWORD=$DB_TEST_PASSWORD -p $DB_TEST_PORT:5432 -d --rm docker.io/postgres
 	echo "apply_test: container '$TEST_CONTAINER_NAME' started"
