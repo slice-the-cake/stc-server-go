@@ -12,8 +12,19 @@ WAIT_SECONDS=5
 help() {
 	echo "[WIP] This script automates Postgres migrations using the Atlas tool (https://atlasgo.io/).
 
-pre-reqs
-help
+# Requirements
+
+- basic Unix environment
+- podman (https://podman.io/). This can eventually be extended to also support docker
+
+# Commands
+
+You can execute this script passing the following commands as the first argument. Some commands may take further arguments.
+
+- help
+
+Prints this text.
+
 stop_test
 diff
 apply
