@@ -1,19 +1,29 @@
 #!/usr/bin/env sh
 set -e # exit on first error
 
-ERR_NO_CMD=1
-ERR_NO_MIGRATION_NAME=2
-ERR_NO_ENV_VAR=3
-ERR_APPLY_NO_ARG=4
-ERR_APPLY_NO_ENV_VAR_NAME=5
+ERR_NO_MIGRATION_NAME=1
+ERR_NO_ENV_VAR=2
+ERR_APPLY_NO_ARG=3
+ERR_APPLY_NO_ENV_VAR_NAME=4
 
 TEST_CONTAINER_NAME=migration
 WAIT_SECONDS=5
 
+help() {
+	echo "[WIP] This script automates Postgres migrations using the Atlas tool (https://atlasgo.io/).
+
+pre-reqs
+help
+stop_test
+diff
+apply
+apply_test"
+}
+
 if [[ -z $1 ]]
 then
-	echo "Please provide command"
-	exit $ERR_NO_CMD
+	help
+	exit 0
 fi
 
 stop_test() {
