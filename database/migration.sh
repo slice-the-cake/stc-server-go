@@ -25,10 +25,11 @@ You can execute this script passing the following commands as the first argument
 
 Prints this text.
 
-stop_test
 diff
+apply_test
+stop_test
 apply
-apply_test"
+"
 }
 
 if [[ -z $1 ]]
