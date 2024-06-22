@@ -39,16 +39,32 @@ Required files:
     action on this front.
 
 Required environment variables:
-    - \$DB_TEST_PASSWORD - the password for the database used by atlas to generate the migrations
-    - \$DB_TEST_PORT - the port to connect to the dabase used by atlas to generate the migrations
-    - \$DB_TEST_URL - the full URL to the database used by atlas to generate migrations
+    - DB_TEST_PASSWORD
+    - DB_TEST_PORT
+    - DB_TEST_URL
 
 Required arguments:
     - <MIGRATION_NAME> - the name of the migration atlas will generate if there are differences in the schema since migrations were last generated.
 
-apply_test
+- apply_test
+
+Applies migrations to a newly created Postgres container so the migrations can be tested. The Postgres container is left running so the changes ca be verified.
+
+Required environment variables:
+    - DB_TEST_PASSWORD
+    - DB_TEST_PORT
+    - DB_TEST_URL
+
 stop_test
 apply
+
+# Environment Variables
+
+The following environment variables may be used by one or more commands:
+
+- DB_TEST_PASSWORD - the password for the database used by atlas to generate the migrations
+- DB_TEST_PORT - the port to connect to the dabase used by atlas to generate the migrations
+- DB_TEST_URL - the full URL to the database used by atlas to generate migrations
 "
 }
 
