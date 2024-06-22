@@ -55,8 +55,18 @@ Required environment variables:
     - DB_TEST_PORT
     - DB_TEST_URL
 
-stop_test
-apply
+- stop_test
+
+Stops the Postgres container used for tests.
+
+- apply [-e <ENVIRONMENT_VARIABLE> | <DB_URL>]
+
+Applies migrations to the Postgres instance specified via arguments. You can specify an environment variable that contains the DB URL, or the URL itself.
+
+Required arguments:
+    - One, and only one, of the following:
+        * -e <ENVIRONMENT_VARIABLE> - the environment variable name that contains the DB URL. It has to be provided without the usual '$' prefix.
+	* <DB_URL> - the DB URL.
 
 # Environment Variables
 
