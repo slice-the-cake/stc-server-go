@@ -17,6 +17,10 @@ help() {
 - basic Unix environment
 - podman (https://podman.io/). This can eventually be extended to also support docker
 
+# Usage examples
+
+[WIP]
+
 # Commands
 
 You can execute this script passing the following commands as the first argument. Some commands may take further arguments.
@@ -25,7 +29,23 @@ You can execute this script passing the following commands as the first argument
 
 Prints this text.
 
-diff
+- diff <MIGRATION_NAME>
+
+Performs a diff between the schema file and the already generated migration files (if any). If there are differences, generates a migration that performs the required changes to
+close the gap between the migrations and the source of truth (schema file).
+
+Required files:
+    - requires the 'schema.sql' to be in the same directory as this script, i.e., the 'database' directory in the root of the project. This should already be the case, requiring no
+    action on this front.
+
+Required environment variables:
+    - \$DB_TEST_PASSWORD - the password for the database used by atlas to generate the migrations
+    - \$DB_TEST_PORT - the port to connect to the dabase used by atlas to generate the migrations
+    - \$DB_TEST_URL - the full URL to the database used by atlas to generate migrations
+
+Required arguments:
+    - <MIGRATION_NAME> - the name of the migration atlas will generate if there are differences in the schema since migrations were last generated.
+
 apply_test
 stop_test
 apply
