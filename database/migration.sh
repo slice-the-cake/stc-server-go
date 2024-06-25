@@ -10,38 +10,7 @@ TEST_CONTAINER_NAME=migration
 WAIT_SECONDS=5
 
 help() {
-	echo "This script automates Postgres migrations using the Atlas tool (https://atlasgo.io/).
-
-# Requirements
-
-- basic Unix environment
-- podman (https://podman.io/). This can eventually be extended to also support docker
-
-# Usage examples
-
-One way to make environment variables available is to prepend them by reading from an '.env' file, like so:
-
-\$ eval \"\$(cat .env | xargs)\" ./database/migration.sh
-
-Create a migration with the changes made since the last migrations were generated:
-
-\$ eval \"\$(cat .env | xargs)\" ./database/migration.sh diff <MIGRATION_NAME>
-
-Applies migrations to a test Postgres database container:
-
-\$ eval \"\$(cat .env | xargs)\" ./database/migration.sh apply_test
-
-Applies migrations to the database which URL is contained in the 'DB_URL' environment variable:
-
-\$ eval \"\$(cat .env | xargs)\" ./database/migration.sh apply -e DB_URL
-
-Applies migrations to the database located in <DB_URL>:
-
-\$ eval \"\$(cat .env | xargs)\" ./database/migration.sh apply <DB_URL>
-
-Stops test Postgres database container:
-
-\$ ./database/migration.sh stop_test
+	echo "This script automates Postgres migrations using the Atlas database tool (https://atlasgo.io/).
 
 # Commands
 
