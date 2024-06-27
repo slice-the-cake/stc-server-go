@@ -13,7 +13,7 @@ The database migrations are driven by:
 ### Requirements
 
 - basic Unix environment
-- podman (https://podman.io/). `migration.sh` can eventually be extended to also support docker
+- [podman](https://podman.io/). `migration.sh` can eventually be extended to also support docker
 
 ### Usage examples
 
