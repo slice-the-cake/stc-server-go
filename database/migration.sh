@@ -108,6 +108,7 @@ diff() {
 	sleep $WAIT_SECONDS
 
 	echo "diff: generating migrations"
+	# why append `:z` to the volume: https://devops.stackexchange.com/questions/11267/permission-denied-within-mounted-volume-inside-podman-container
 	podman run --rm --net=host -v $(pwd)/database/migrations:/migrations -v $(pwd)/database:/schema:z docker.io/arigaio/atlas migrate diff $1 --to file://schema/schema.sql \
 		--dev-url "$DB_TEST_URL" --format '{{ sql . "  " }}'
 	echo "diff: generation finished"
