@@ -6,20 +6,18 @@ This is asking to become an OpenAPI spec. [1], and it will in the (hopefully nea
 
 ### Register
 
-[WIP] Creates a new user account. 
+Creates a new user account. 
 
 **Pre-conditions**:
 
-<!-- TODO: this should change. If we have multiple clients that work differently for registration and auth and the user changes clients we will have problems. Registration
-        and auth should support two methods: one where the client hashes the username with the passphrase so the passphrase doesn't need to be sent to the server and one
-        where the client is incapable of hashing, sends the passphrase and the server does the hashing. For this to work client and server have to use the same hashing function,
-        this should be part of the "protocol". -->
-- It is recommended that the username be encrypted by the client with the user's passphrase and sent down as the hash. In that way the passphrase is never sent to the server.
+- It is *recommended* (but not mandatory) that the username be encrypted by the client with the user's passphrase and sent down as the hash. In that way the passphrase is never
+sent to the server. However, we want to support clients that are not capable of doing this, e.g., web clients with JS disabled.
 
 **Post-conditions**:
 
-- User is created. The hash is encrypted with a one-way hash function, meaning that it's almost impossible to revert. See more at [Okta - One-Way Hash Function: Dynamic Algorithms](https://www.okta.com/identity-101/one-way-hash-function-dynamic-algorithms/).
-This is done to support a client that does not have the capability of encryption and sends down a plain passphrase, in which case it's not stored in the open on the server;
+- User is created. The username is encrypted using the passphrase as key. The encryption can occur at either client- or server-side depending on the client's capabilities.
+A one-way hash function should be used, meaning that it's almost impossible to revert. See more at [Okta - One-Way Hash Function: Dynamic Algorithms](https://www.okta.com/identity-101/one-way-hash-function-dynamic-algorithms/).
+Both client and server should use the same function so the user can switch clients without problems.
 - Default account is created for the user;
 - Default wallet is created for the default account.
 
@@ -32,7 +30,10 @@ This is done to support a client that does not have the capability of encryption
 ```json
 {
     "username": "string", // required, min length 1, max length 16 (?)
-    "hash": "string" // required
+    "secret": {
+        "hash": "string", // null if `passphrase` not null, not null if `passphrase` null
+        "passphrase": "string" // null if `hash` not null, not null if `hash` null
+    }
 }
 ```
 
@@ -60,13 +61,26 @@ This is done to support a client that does not have the capability of encryption
 }
 ```
 
-- 422 - Hash not provided
+- 422 - Secret not provided
 
 ```json
 {
     "errors": [
         {
-            "code": "users.post.hash.notProvided",
+            "code": "users.post.secret.notProvided",
+            "dataMap": {}
+        }
+    ]
+}
+```
+
+- 422 - Ambiguous secret (both `hash` and `passphrase` were provided)
+
+```json
+{
+    "errors": [
+        {
+            "code": "users.post.secret.ambiguous",
             "dataMap": {}
         }
     ]
