@@ -1,6 +1,6 @@
 # API reference
 
-This is asking to become an OpenAPI spec. [1], and it will in the (hopefully near) future.
+This is asking to become an OpenAPI spec. [1]
 
 ## User
 
