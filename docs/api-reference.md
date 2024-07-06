@@ -6,18 +6,19 @@ This is asking to become an OpenAPI spec. [1]
 
 ### Register
 
+<!-- TODO: figure out how to enforce a passphrase policy with the possibility of client-side encryption -->
+
 Creates a new user account. 
 
 **Pre-conditions**:
 
-- It is *recommended* (but not mandatory) that the username be encrypted by the client with the user's passphrase and sent down as the hash. In that way the passphrase is never
-sent to the server. However, we want to support clients that are not capable of doing this, e.g., web clients with JS disabled.
+- It is *recommended* (but not mandatory) that the passphrase is encrypted with the username as the salt if the client is capable of doing so. In that way the passphrase is sent
+with an extra level of encryption on top of HTTPS. In the future we may consider designing some sort of protocol for capable clients to avoid sending even the encrypted password
+to the server.
 
 **Post-conditions**:
 
-- User is created. The username is encrypted using the passphrase as key. The encryption can occur at either client- or server-side depending on the client's capabilities.
-A one-way hash function should be used, meaning that it's almost impossible to revert. See more at [Okta - One-Way Hash Function: Dynamic Algorithms](https://www.okta.com/identity-101/one-way-hash-function-dynamic-algorithms/).
-Both client and server should use the same function so the user can switch clients without problems.
+- User is created. The passphrase is encrypted with a salt using [Argon2id](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
 - Default account is created for the user;
 - Default wallet is created for the default account.
 
@@ -30,10 +31,7 @@ Both client and server should use the same function so the user can switch clien
 ```json
 {
     "username": "string", // required, min length 1, max length 16 (?)
-    "secret": {
-        "hash": "string", // null if `passphrase` not null, not null if `passphrase` null
-        "passphrase": "string" // null if `hash` not null, not null if `hash` null
-    }
+    "passphrase": "string" // required
 }
 ```
 
@@ -61,26 +59,13 @@ Both client and server should use the same function so the user can switch clien
 }
 ```
 
-- 422 - Secret not provided
+- 422 - Passphrase not provided
 
 ```json
 {
     "errors": [
         {
-            "code": "users.post.secret.notProvided",
-            "dataMap": {}
-        }
-    ]
-}
-```
-
-- 422 - Ambiguous secret (both `hash` and `passphrase` were provided)
-
-```json
-{
-    "errors": [
-        {
-            "code": "users.post.secret.ambiguous",
+            "code": "users.post.passphrase.notProvided",
             "dataMap": {}
         }
     ]
