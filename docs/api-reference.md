@@ -10,7 +10,8 @@ Creates a new user account.
 
 **Post-conditions**:
 
-- User is created. The passphrase is encrypted with a salt using [Argon2id](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
+- User is created. The passphrase is hashed with a [salt](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#salting) using [Argon2id](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) and the hash is [peppered](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#peppering)
+before being stored.
 - Default account is created for the user;
 - Default wallet is created for the default account.
 
