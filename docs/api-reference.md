@@ -6,15 +6,7 @@ This is asking to become an OpenAPI spec. [1]
 
 ### Register
 
-<!-- TODO: figure out how to enforce a passphrase policy with the possibility of client-side encryption -->
-
 Creates a new user account. 
-
-**Pre-conditions**:
-
-- It is *recommended* (but not mandatory) that the passphrase is encrypted with the username as the salt if the client is capable of doing so. In that way the passphrase is sent
-with an extra level of encryption on top of HTTPS. In the future we may consider designing some sort of protocol for capable clients to avoid sending even the encrypted password
-to the server.
 
 **Post-conditions**:
 
@@ -31,7 +23,7 @@ to the server.
 ```json
 {
     "username": "string", // required, min length 1, max length 16 (?)
-    "passphrase": "string" // required
+    "passphrase": "string" // required, min length 16
 }
 ```
 
@@ -42,7 +34,7 @@ to the server.
 ```json
 {
     "id": "uuid",
-    "links": {} // TBD
+    "links": {} // TBD [WIP]
 }
 ```
 
@@ -98,6 +90,21 @@ to the server.
             "dataMap": {
                 "username": "$REQUESTED_USERNAME",
                 "max": $MAX_LENGTH
+            }
+        }
+    ]
+}
+```
+
+- 422 - Passphrase is too short
+
+```json
+{
+    "errors": [
+        {
+            "code": "users.post.passphrase.tooShort",
+            "dataMap": {
+                "min": $MIN_LENGTH
             }
         }
     ]
