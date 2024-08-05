@@ -19,6 +19,12 @@ Execute the local compose file with your compose engine of choice, e.g., `docker
 podman-compose -f containers/local-compose.yml up --force-recreate
 ```
 
+For running with a local `go` installation:
+
+```shell
+eval "$(cat .env | xargs)" go run main.go
+```
+
 ## Rebuilding server image
 
 When you make changes to the server source code you will need to rebuild the container image. Here's an example with `podman-compose`:
