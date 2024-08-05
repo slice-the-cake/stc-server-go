@@ -16,5 +16,5 @@ func main() {
 		}
 		fmt.Fprintf(w, "Hello from STC server! Here's the body that was sent: %s", b)
 	})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8090", nil))
 }
